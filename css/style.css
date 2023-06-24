@@ -852,7 +852,8 @@ section{
 }
 
 .search-form form .box{
-   width: 100%;
+   width: 50%;
+   margin-left: 25rem;
    padding:1.2rem 1.4rem;
    border:var(--border);
    font-size: 2rem;
