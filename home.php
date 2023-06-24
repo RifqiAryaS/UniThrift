@@ -95,7 +95,7 @@ if (isset($_POST['add_to_cart'])) {
 
    </section>
 
-   <section class="about">
+   <!-- <section class="about">
 
       <div class="flex">
 
@@ -106,12 +106,12 @@ if (isset($_POST['add_to_cart'])) {
          <div class="content">
             <h3>about us</h3>
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit quos enim minima ipsa dicta officia corporis ratione saepe sed adipisci?</p>
-            <!-- <a href="about.php" class="btn">read more</a> -->
+            <a href="about.php" class="btn">read more</a>
          </div>
 
       </div>
 
-   </section>
+   </section> -->
 
    <!-- <section class="home-contact">
 
