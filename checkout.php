@@ -6,6 +6,7 @@ session_start();
 
 $user_id = $_SESSION['user_id'];
 
+
 if (!isset($user_id)) {
    header('location:login.php');
 }
@@ -18,6 +19,7 @@ if (isset($_POST['order_btn'])) {
    $method = mysqli_real_escape_string($conn, $_POST['method']);
    $address = mysqli_real_escape_string($conn, 'flat no. ' . $_POST['flat'] . ', ' . $_POST['street'] . ', ' . $_POST['city'] . ', ' . $_POST['country'] . ' - ' . $_POST['pin_code']);
    $placed_on = date('d-M-Y');
+   $end_on = date('d-M-Y', time() + 7 * 24 * 60 * 60);
 
    $cart_total = 0;
    $cart_products[] = '';
@@ -41,7 +43,7 @@ if (isset($_POST['order_btn'])) {
       if (mysqli_num_rows($order_query) > 0) {
          $message[] = 'order already placed!';
       } else {
-         mysqli_query($conn, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$cart_total', '$placed_on')") or die('query failed');
+         mysqli_query($conn, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, end_on) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$cart_total', '$placed_on', '$end_on')") or die('query failed');
          $message[] = 'order placed successfully!';
          mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
       }
