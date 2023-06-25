@@ -14,7 +14,7 @@ if (isset($_POST['update_cart'])) {
    $cart_id = $_POST['cart_id'];
    // $cart_quantity = $_POST['cart_quantity'];
    // mysqli_query($conn, "UPDATE `cart` SET quantity = '$cart_quantity' WHERE id = '$cart_id'") or die('query failed');
-   $message[] = 'cart quantity updated!';
+   $message[] = 'Kerangjang telah terupdate!';
 }
 
 if (isset($_GET['delete'])) {
@@ -37,7 +37,7 @@ if (isset($_GET['delete_all'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>cart</title>
+   <title>Keranjang</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -52,8 +52,8 @@ if (isset($_GET['delete_all'])) {
    <?php include 'header.php'; ?>
 
    <div class="heading">
-      <h3>shopping cart</h3>
-      <p> <a href="home.php">home</a> / cart </p>
+      <h3>Keranjang</h3>
+      <p> <a href="home.php">home</a> / Keranjang </p>
    </div>
 
    <section class="shopping-cart">
