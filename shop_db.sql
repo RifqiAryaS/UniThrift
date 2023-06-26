@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2023 at 10:51 PM
+-- Generation Time: Jun 26, 2023 at 05:30 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -36,6 +36,13 @@ CREATE TABLE `cart` (
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `name`, `price`, `quantity`, `image`) VALUES
+(80, 3, 'History of Modern', 0, 1, 'history_of_modern_architecture.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -61,15 +68,24 @@ CREATE TABLE `orders` (
   `id` int(100) NOT NULL,
   `user_id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `number` varchar(12) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `method` varchar(50) NOT NULL,
-  `address` varchar(500) NOT NULL,
-  `total_products` varchar(1000) NOT NULL,
-  `total_price` int(100) NOT NULL,
+  `number` varchar(12) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `method` varchar(50) DEFAULT NULL,
+  `address` varchar(500) DEFAULT NULL,
+  `total_products` varchar(1000) DEFAULT NULL,
+  `total_price` int(100) DEFAULT NULL,
   `placed_on` varchar(50) NOT NULL,
-  `payment_status` varchar(20) NOT NULL DEFAULT 'pending'
+  `payment_status` varchar(20) NOT NULL DEFAULT 'pending',
+  `end_on` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`, `end_on`) VALUES
+(12, 3, 'rifqi', '082456321', 'member1@gmail.com', 'cash on delivery', 'flat no. 12, 21, Semarang, Indonesia - 021563', ', Abstract Art (1) , Clever Lands (1) ', 2, '24-Jun-2023', 'completed', NULL),
+(13, 3, 'rifqi', '021456987', 'member1@gmail.com', 'cash on delivery', 'flat no. 12, 12, Kab. Kudus, Indonesia - 59341', ', Abstract Art (1) ', 1, '24-Jun-2023', 'pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -89,8 +105,8 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `image`) VALUES
-(2, 'Abstract Art', 5, 'the_world.jpg'),
-(3, 'Clever Lands', 0, 'clever_lands.jpg');
+(2, 'Abstract Art', 0, 'the_world.jpg'),
+(5, 'History of Modern', 0, 'history_of_modern_architecture.jpg');
 
 -- --------------------------------------------------------
 
@@ -111,8 +127,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `user_type`) VALUES
-(1, 'rifqi', 'rifqi@gmail.com', '72561baf6079c338cc2dd68e98d52055', 'admin'),
-(2, 'admin1', 'admin1@gmail.com', 'e00cf25ad42683b3df678c61f42c6bda', 'user');
+(2, 'admin1', 'admin1@gmail.com', 'e00cf25ad42683b3df678c61f42c6bda', 'admin'),
+(3, 'member1', 'member1@gmail.com', 'c7764cfed23c5ca3bb393308a0da2306', 'user');
 
 --
 -- Indexes for dumped tables
@@ -156,7 +172,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -168,19 +184,19 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

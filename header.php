@@ -32,9 +32,9 @@ if (isset($message)) {
          <nav class="navbar">
             <a href="home.php">home</a>
             <!-- <a href="about.php">about</a> -->
-            <a href="shop.php">shop</a>
+            <a href="shop.php">daftar</a>
             <!-- <a href="contact.php">contact</a> -->
-            <a href="orders.php">orders</a>
+            <a href="orders.php">peminjaman</a>
          </nav>
 
          <div class="icons">
