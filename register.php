@@ -62,6 +62,10 @@ if (isset($_POST['submit'])) {
 
    <div class="form-container">
 
+      <div class="row d-flex align-items-center justify-content-center h-100">
+         <img src="images/bukucoy.jpg" width="460" height="440" padding alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: Right;">
+      </div>
+
       <form action="" method="post">
          <h3>daftar</h3>
          <input type="text" name="name" placeholder="Masukkan Nama" required class="box">

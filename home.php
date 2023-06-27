@@ -20,10 +20,10 @@ if (isset($_POST['add_to_cart'])) {
    $check_cart_numbers = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
 
    if (mysqli_num_rows($check_cart_numbers) > 0) {
-      $message[] = 'already added to cart!';
+      $message[] = 'buku sudah ada di keranjang!';
    } else {
       mysqli_query($conn, "INSERT INTO `cart`(user_id, name, image) VALUES('$user_id', '$product_name', '$product_image')") or die('query failed');
-      $message[] = 'product added to cart!';
+      $message[] = 'buku ditambahkan ke keranjang!';
    }
 }
 
@@ -62,7 +62,7 @@ if (isset($_POST['add_to_cart'])) {
 
    <section class="products">
 
-      <h1 class="title">latest products</h1>
+      <h1 class="title">terakhir ditambah</h1>
 
       <div class="box-container">
 

@@ -20,10 +20,10 @@ if (isset($_POST['add_to_cart'])) {
    $check_cart_numbers = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND user_id = '$user_id'") or die('query failed');
 
    if (mysqli_num_rows($check_cart_numbers) > 0) {
-      $message[] = 'already added to cart!';
+      $message[] = 'buku sudah ada di keranjang!';
    } else {
       mysqli_query($conn, "INSERT INTO `cart`(user_id, name, image) VALUES('$user_id', '$product_name', '$product_image')") or die('query failed');
-      $message[] = 'product added to cart!';
+      $message[] = 'buku ditambahkan ke keranjang!';
    }
 };
 
@@ -57,7 +57,7 @@ if (isset($_POST['add_to_cart'])) {
 
    <section class="search-form">
       <form action="" method="post">
-         <input type="text" name="search" placeholder="search products..." class="box">
+         <input type="text" name="search" placeholder="cari buku..." class="box">
          <input type="submit" name="submit" value="search" class="btn">
       </form>
    </section>
@@ -85,10 +85,10 @@ if (isset($_POST['add_to_cart'])) {
          <?php
                }
             } else {
-               echo '<p class="empty">no result found!</p>';
+               echo '<p class="empty">Buku Tidak Ditemukan!</p>';
             }
          } else {
-            echo '<p class="empty">search something!</p>';
+            echo '<p class="empty">cari sesuatu!</p>';
          }
          ?>
       </div>

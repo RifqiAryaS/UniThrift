@@ -50,6 +50,10 @@ section{
    padding:3rem 2rem;
 }
 
+.hidden{
+   display: none;
+}
+
 .empty{
    padding:1.5rem;
    text-align: center;

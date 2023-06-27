@@ -55,13 +55,13 @@ if (isset($_POST['order_btn'])) {
    $order_query = mysqli_query($conn, "SELECT * FROM `orders` WHERE name = '$name' AND total_products = '$total_products' AND total_price = '$cart_total'") or die('query failed');
 
    if ($cart_total == 0) {
-      $message[] = 'your cart is empty';
+      $message[] = 'keranjang kosong';
    } else {
       if (mysqli_num_rows($order_query) > 0) {
-         $message[] = 'order already placed!';
+         $message[] = 'buku sudah ada!';
       } else {
          mysqli_query($conn, "INSERT INTO `orders`(user_id, name, total_products, total_price, placed_on, end_on) VALUES('$user_id', '$name', '$total_products', '$cart_total', '$placed_on', '$end_on')") or die('query failed');
-         $message[] = 'order placed successfully!';
+         $message[] = 'peminjaman berhasil!';
          mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
       }
    }
@@ -97,7 +97,7 @@ if (isset($_POST['order_btn'])) {
 
    <section class="shopping-cart">
 
-      <h1 class="title">products added</h1>
+      <h1 class="title">bukumu</h1>
 
       <div class="box-container">
          <?php
@@ -107,7 +107,7 @@ if (isset($_POST['order_btn'])) {
             while ($fetch_cart = mysqli_fetch_assoc($select_cart)) {
          ?>
                <div class="box">
-                  <a href="cart.php?delete=<?php echo $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('delete this from cart?');"></a>
+                  <a href="cart.php?delete=<?php echo $fetch_cart['id']; ?>" class="fas fa-times" onclick="return confirm('hapus buku ini?');"></a>
                   <img src="uploaded_img/<?php echo $fetch_cart['image']; ?>" alt="">
                   <div class="name"><?php echo $fetch_cart['name']; ?></div>
                   <!-- <div class="price">$<?php echo $fetch_cart['price']; ?>/-</div> -->
@@ -123,13 +123,13 @@ if (isset($_POST['order_btn'])) {
                $grand_total += $sub_total;
             }
          } else {
-            echo '<p class="empty">your cart is empty</p>';
+            echo '<p class="empty">keranjang kosong</p>';
          }
          ?>
       </div>
 
       <div style="margin-top: 2rem; text-align:center;">
-         <a href="cart.php?delete_all" class="delete-btn" onclick="return confirm('delete all from cart?');">delete all</a>
+         <a href="cart.php?delete_all" class="delete-btn" onclick="return confirm('hapus semua buku?');">delete all</a>
       </div>
 
       <div class="cart-total">
@@ -137,7 +137,7 @@ if (isset($_POST['order_btn'])) {
          <div class="flex">
             <a href="shop.php" class="option-btn">Cari Buku</a>
             <form action="" method="post">
-               <input type="submit" value="order now" class="btn <?php echo ($grand_total > 1) ? '' : 'disabled'; ?>" name="order_btn">
+               <input type="submit" value="pinjam" class="btn <?php echo ($grand_total > 1) ? '' : 'disabled'; ?>" name="order_btn">
             </form>
             <!-- <a href="checkout.php" class="btn <?php echo ($grand_total > 1) ? '' : 'disabled'; ?>">Pinjam Sekarang</a> -->
          </div>

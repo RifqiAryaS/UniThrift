@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2023 at 05:30 AM
+-- Generation Time: Jun 27, 2023 at 04:48 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -35,13 +35,6 @@ CREATE TABLE `cart` (
   `quantity` int(100) NOT NULL DEFAULT 1,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `name`, `price`, `quantity`, `image`) VALUES
-(80, 3, 'History of Modern', 0, 1, 'history_of_modern_architecture.jpg');
 
 -- --------------------------------------------------------
 
@@ -84,8 +77,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`, `end_on`) VALUES
-(12, 3, 'rifqi', '082456321', 'member1@gmail.com', 'cash on delivery', 'flat no. 12, 21, Semarang, Indonesia - 021563', ', Abstract Art (1) , Clever Lands (1) ', 2, '24-Jun-2023', 'completed', NULL),
-(13, 3, 'rifqi', '021456987', 'member1@gmail.com', 'cash on delivery', 'flat no. 12, 12, Kab. Kudus, Indonesia - 59341', ', Abstract Art (1) ', 1, '24-Jun-2023', 'pending', NULL);
+(17, 3, 'member1', NULL, NULL, NULL, NULL, ', History of Modern (1) ', 1, '26-Jun-2023', 'compleated', '03-Jul-2023'),
+(18, 3, 'member1', NULL, NULL, NULL, NULL, ', History of Modern (1) , Bahagia Itu Sederhana (1) ', 2, '27-Jun-2023', 'compleated', '04-Jul-2023'),
+(19, 3, 'member1', NULL, NULL, NULL, NULL, ', Abstract Art (1) , History of Modern (1) ', 2, '27-Jun-2023', 'compleated', '04-Jul-2023');
 
 -- --------------------------------------------------------
 
@@ -106,7 +100,8 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `price`, `image`) VALUES
 (2, 'Abstract Art', 0, 'the_world.jpg'),
-(5, 'History of Modern', 0, 'history_of_modern_architecture.jpg');
+(5, 'History of Modern', 0, 'history_of_modern_architecture.jpg'),
+(7, 'Senja di Batas Kota', 0, 'senja di batas kota.png');
 
 -- --------------------------------------------------------
 
@@ -172,7 +167,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -184,13 +179,13 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
