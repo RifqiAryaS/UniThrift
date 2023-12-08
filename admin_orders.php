@@ -33,7 +33,7 @@ if (isset($_GET['delete'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>orders</title>
+   <title>Peminjaman</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -49,7 +49,7 @@ if (isset($_GET['delete'])) {
 
    <section class="orders">
 
-      <h1 class="title">placed orders</h1>
+      <h1 class="title">daftar pinjaman</h1>
 
       <div class="box-container">
          <?php
@@ -81,7 +81,7 @@ if (isset($_GET['delete'])) {
                         <option value="completed">completed</option>
                      </select> -->
                      <!-- <input type="submit" value="update" name="update_order" class="option-btn"> -->
-                     <a href="admin_orders.php?delete=<?php echo $fetch_orders['id']; ?>" onclick="return confirm('delete this order?');" class="delete-btn">delete</a>
+                     <a href="admin_orders.php?delete=<?php echo $fetch_orders['id']; ?>" onclick="return confirm('hapus data ini?');" class="delete-btn">delete</a>
                   </form>
                </div>
          <?php
