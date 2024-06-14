@@ -2,6 +2,7 @@
 
 :root{
    --purple:#8e44ad;
+   --blue:#0a1df5;
    --red:#c0392b;
    --orange:#f39c12;
    --black:#333;
@@ -297,7 +298,7 @@ section{
 }
 
 .header .header-2 .flex .navbar a:hover{
-   color:var(--light-green);
+   color:var(--blue);
    text-decoration: none;
 }
 
@@ -309,7 +310,7 @@ section{
 }
 
 .header .header-2 .flex .icons > *:hover{
-   color:var(--light-green);
+   color:var(--blue);
 }
 
 #menu-btn{
@@ -341,7 +342,7 @@ section{
 }
 
 .header .header-2 .flex .user-box p span{
-   color:var(--light-green);
+   color:var(--blue);
 }
 
 .header .header-2 .flex .user-box .delete-btn{
