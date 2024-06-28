@@ -11,9 +11,9 @@ if (!isset($admin_id)) {
 };
 
 if (isset($_POST['add_product'])) {
-
    $name = mysqli_real_escape_string($conn, $_POST['name']);
-   // $price = $_POST['price'];
+   $price = $_POST['price'];
+   $stock = $_POST['stock'];
    $image = $_FILES['image']['name'];
    $image_size = $_FILES['image']['size'];
    $image_tmp_name = $_FILES['image']['tmp_name'];
@@ -22,19 +22,19 @@ if (isset($_POST['add_product'])) {
    $select_product_name = mysqli_query($conn, "SELECT name FROM `products` WHERE name = '$name'") or die('query failed');
 
    if (mysqli_num_rows($select_product_name) > 0) {
-      $message[] = 'nama buku sudah ada';
+      $error_msg[] = 'nama produk sudah ada';
    } else {
-      $add_product_query = mysqli_query($conn, "INSERT INTO `products`(name, image) VALUES('$name', '$image')") or die('query failed');
-
-      if ($add_product_query) {
-         if ($image_size > 2000000) {
-            $message[] = 'ukuran file terlalu besar';
-         } else {
-            move_uploaded_file($image_tmp_name, $image_folder);
-            $message[] = 'buku berhasil ditambah!';
-         }
+      if ($image_size > 2000000) {
+         $warning_msg[] = 'ukuran file terlalu besar';
       } else {
-         $message[] = 'buku tidak dadpat ditambah!';
+         $add_product_query = mysqli_query($conn, "INSERT INTO `products`(name, price, stock, image) VALUES('$name', $price, $stock, '$image')") or die('query failed');
+
+         if ($add_product_query) {
+            move_uploaded_file($image_tmp_name, $image_folder);
+            $success_msg[] = 'produk berhasil ditambah!';
+         } else {
+            $error_msg[] = 'produk tidak dapat ditambah!';
+         }
       }
    }
 }
@@ -64,7 +64,7 @@ if (isset($_POST['update_product'])) {
 
    if (!empty($update_image)) {
       if ($update_image_size > 2000000) {
-         $message[] = 'ukuran file terlalu besar';
+         $warning_msg[] = 'ukuran file terlalu besar';
       } else {
          mysqli_query($conn, "UPDATE `products` SET image = '$update_image' WHERE id = '$update_p_id'") or die('query failed');
          move_uploaded_file($update_image_tmp_name, $update_folder);
@@ -84,7 +84,7 @@ if (isset($_POST['update_product'])) {
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Buku</title>
+   <title>UniThrift</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -102,14 +102,15 @@ if (isset($_POST['update_product'])) {
 
    <section class="add-products">
 
-      <h1 class="title">daftar buku</h1>
+      <h1 class="title">daftar produk</h1>
 
       <form action="" method="post" enctype="multipart/form-data">
-         <h3>Tambah Buku</h3>
-         <input type="text" name="name" class="box" placeholder="masukkan nama buku" required>
-         <!-- <input type="number" min="0" name="price" class="box" placeholder="enter product price" required> -->
+         <h3>Tambah Produk</h3>
+         <input type="text" name="name" class="box" placeholder="masukkan nama produk" required>
+         <input type="number" min="0" name="price" maxlength="10" class="box" placeholder="masukan harga produk" required>
+         <input type="number" min="0" name="stock" maxlength="10" class="box" placeholder="masukkan stok produk" required>
          <input type="file" name="image" accept="image/jpg, image/jpeg, image/png" class="box" required>
-         <input type="submit" value="tambah buku" name="add_product" class="btn">
+         <input type="submit" value="tambah produk" name="add_product" class="btn">
       </form>
 
    </section>
@@ -129,15 +130,23 @@ if (isset($_POST['update_product'])) {
          ?>
                <div class="box">
                   <img src="uploaded_img/<?php echo $fetch_products['image']; ?>" alt="">
+                  <?php if ($fetch_products['stock'] > 9) { ?>
+                     <span class="stock" style="color: green;"><i class="fas fa-check"></i> Stock Tersedia</span>
+                  <?php } elseif ($fetch_products['stock'] == 0) { ?>
+                     <span class="stock" style="color: red;"><i class="fas fa-times"></i> Barang Habis</span>
+                  <?php } else { ?>
+                     <span class="stock" style="color: red;">buruan tingggal <?= $fetch_products['stock']; ?></span>
+                  <?php } ?>
                   <div class="name"><?php echo $fetch_products['name']; ?></div>
-                  <!-- <div class="price">$<?php echo $fetch_products['price']; ?>/-</div> -->
+                  <div class="price">Rp. <?php echo $fetch_products['price']; ?></div>
+                  <!-- <div class="stock"><?php echo $fetch_products['stock']; ?></div> -->
                   <a href="admin_products.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn">update</a>
                   <a href="admin_products.php?delete=<?php echo $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('hapus buku ini?');">delete</a>
                </div>
          <?php
             }
          } else {
-            echo '<p class="empty">Belum ada buku!</p>';
+            echo '<p class="empty">Belum ada produk!</p>';
          }
          ?>
       </div>

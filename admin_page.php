@@ -77,7 +77,7 @@ if (!isset($admin_id)) {
             $number_of_orders = mysqli_num_rows($select_orders);
             ?>
             <h3><?php echo $number_of_orders; ?></h3>
-            <p>Peminjaman</p>
+            <p>Transaksi</p>
          </div>
 
          <div class="box">
@@ -86,7 +86,7 @@ if (!isset($admin_id)) {
             $number_of_products = mysqli_num_rows($select_products);
             ?>
             <h3><?php echo $number_of_products; ?></h3>
-            <p>Daftar Buku</p>
+            <p>Daftar Produk</p>
          </div>
 
          <div class="box">
