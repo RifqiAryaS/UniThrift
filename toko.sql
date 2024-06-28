@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2023 at 04:48 AM
+-- Generation Time: Jun 28, 2024 at 07:00 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `shop_db`
+-- Database: `toko`
 --
 
 -- --------------------------------------------------------
@@ -79,7 +79,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `user_id`, `name`, `number`, `email`, `method`, `address`, `total_products`, `total_price`, `placed_on`, `payment_status`, `end_on`) VALUES
 (17, 3, 'member1', NULL, NULL, NULL, NULL, ', History of Modern (1) ', 1, '26-Jun-2023', 'compleated', '03-Jul-2023'),
 (18, 3, 'member1', NULL, NULL, NULL, NULL, ', History of Modern (1) , Bahagia Itu Sederhana (1) ', 2, '27-Jun-2023', 'compleated', '04-Jul-2023'),
-(19, 3, 'member1', NULL, NULL, NULL, NULL, ', Abstract Art (1) , History of Modern (1) ', 2, '27-Jun-2023', 'compleated', '04-Jul-2023');
+(19, 3, 'member1', NULL, NULL, NULL, NULL, ', Abstract Art (1) , History of Modern (1) ', 2, '27-Jun-2023', 'compleated', '04-Jul-2023'),
+(20, 3, 'member1', NULL, NULL, NULL, NULL, ', Abstract Art (1) ', 1, '13-Jun-2024', 'compleated', '20-Jun-2024');
 
 -- --------------------------------------------------------
 
@@ -91,6 +92,7 @@ CREATE TABLE `products` (
   `id` int(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `price` int(100) NOT NULL DEFAULT 0,
+  `stock` int(100) NOT NULL DEFAULT 0,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -98,10 +100,12 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `price`, `image`) VALUES
-(2, 'Abstract Art', 0, 'the_world.jpg'),
-(5, 'History of Modern', 0, 'history_of_modern_architecture.jpg'),
-(7, 'Senja di Batas Kota', 0, 'senja di batas kota.png');
+INSERT INTO `products` (`id`, `name`, `price`, `stock`, `image`) VALUES
+(2, 'Abstract Art', 0, 0, 'the_world.jpg'),
+(7, 'Senja di Batas Kota', 0, 0, 'senja di batas kota.png'),
+(22, '132', 123, 5, '6920933.jpg'),
+(23, '123', 2, 10, 'senja di batas kota.png'),
+(24, 'Lapotop', 5000000, 1, 'Computer.png');
 
 -- --------------------------------------------------------
 
@@ -167,7 +171,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -179,13 +183,13 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`
