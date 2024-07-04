@@ -1,2 +1,2 @@
 <?php
-echo '<img src="path/to/your/image.jpg" alt="Gambar" />';
+echo '<img src="../images/home_bg.jpg" alt="Gambar" />';
