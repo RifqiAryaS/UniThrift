@@ -11,15 +11,19 @@ if (!isset($user_id)) {
    header('location:login.php');
 }
 
+// kota prov jl kode
+
 if (isset($_POST['order_btn'])) {
 
    $name = mysqli_real_escape_string($conn, $_POST['name']);
    $number = $_POST['number'];
    $email = mysqli_real_escape_string($conn, $_POST['email']);
    $method = mysqli_real_escape_string($conn, $_POST['method']);
-   $address = mysqli_real_escape_string($conn, 'flat no. ' . $_POST['flat'] . ', ' . $_POST['street'] . ', ' . $_POST['city'] . ', ' . $_POST['country'] . ' - ' . $_POST['pin_code']);
+   // $nomor = mysqli_real_escape_string($conn, $_POST['nomor']);
+   $kurir = mysqli_real_escape_string($conn, $_POST['kurir']);
+   $address = mysqli_real_escape_string($conn, $_POST['road'] . ', ' . $_POST['nomor'] . ', ' . $_POST['city'] . ', ' . $_POST['prov'] . ', ' . $_POST['pos_code']);
    $placed_on = date('d-M-Y');
-   $end_on = date('d-M-Y', time() + 7 * 24 * 60 * 60);
+   // $end_on = date('d-M-Y', time() + 7 * 24 * 60 * 60);
 
    $cart_total = 0;
    $cart_products[] = '';
@@ -28,14 +32,14 @@ if (isset($_POST['order_btn'])) {
    if (mysqli_num_rows($cart_query) > 0) {
       while ($cart_item = mysqli_fetch_assoc($cart_query)) {
          $cart_products[] = $cart_item['name'] . ' (' . $cart_item['quantity'] . ') ';
-         // $sub_total = ($cart_item['price'] * $cart_item['quantity']);
-         $cart_total += $cart_item['quantity'];
+         $sub_total = ($cart_item['price'] * $cart_item['quantity']);
+         $cart_total += $sub_total;
       }
    }
 
    $total_products = implode(', ', $cart_products);
 
-   $order_query = mysqli_query($conn, "SELECT * FROM `orders` WHERE name = '$name' AND number = '$number' AND email = '$email' AND method = '$method' AND address = '$address' AND total_products = '$total_products' AND total_price = '$cart_total'") or die('query failed');
+   $order_query = mysqli_query($conn, "SELECT * FROM `orders` WHERE name = '$name' AND number = '$number' AND email = '$email' AND method = '$method' AND kurir = '$kurir' AND address = '$address' AND total_products = '$total_products' AND total_price = '$cart_total'") or die('query failed');
 
    if ($cart_total == 0) {
       $message[] = 'your cart is empty';
@@ -43,8 +47,19 @@ if (isset($_POST['order_btn'])) {
       if (mysqli_num_rows($order_query) > 0) {
          $message[] = 'order already placed!';
       } else {
-         mysqli_query($conn, "INSERT INTO `orders`(user_id, name, number, email, method, address, total_products, total_price, placed_on, end_on) VALUES('$user_id', '$name', '$number', '$email', '$method', '$address', '$total_products', '$cart_total', '$placed_on', '$end_on')") or die('query failed');
+         mysqli_query($conn, "INSERT INTO `orders`(user_id, jenis, name, number, email, method, address, kurir, total_products, total_price, placed_on) VALUES('$user_id', 'beli', '$name', '$number', '$email', '$method', '$address', '$kurir', '$total_products', '$cart_total', '$placed_on')") or die('query failed');
          $message[] = 'order placed successfully!';
+         // CODE ADDED: Update product stock
+         $cart_query = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'") or die('query failed'); // CODE ADDED
+         if (mysqli_num_rows($cart_query) > 0) { // CODE ADDED
+            while ($cart_item = mysqli_fetch_assoc($cart_query)) { // CODE ADDED
+               $product_id = $cart_item['product_id']; // CODE ADDED
+               $quantity = $cart_item['quantity']; // CODE ADDED
+               // Debugging statement
+               error_log("Updating stock for product ID: $product_id with quantity: $quantity"); // CODE ADDED
+               mysqli_query($conn, "UPDATE `products` SET stock = stock - $quantity WHERE id = '$product_id'") or die('query failed'); // CODE ADDED
+            } // CODE ADDED
+         } // CODE ADDED
          mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
       }
    }
@@ -102,52 +117,57 @@ if (isset($_POST['order_btn'])) {
    <section class="checkout">
 
       <form action="" method="post">
-         <h3>place your order</h3>
+         <h3>masukkan data diri</h3>
          <div class="flex">
             <div class="inputBox">
-               <span>your name :</span>
-               <input type="text" name="name" required placeholder="enter your name">
+               <span>Nama :</span>
+               <input type="text" name="name" required placeholder="masukkan namamu">
             </div>
             <div class="inputBox">
-               <span>your number :</span>
-               <input type="number" name="number" required placeholder="enter your number">
+               <span>Nomor Telp :</span>
+               <input type="number" name="number" required placeholder="masukkan nomor telp">
             </div>
             <div class="inputBox">
-               <span>your email :</span>
-               <input type="email" name="email" required placeholder="enter your email">
+               <span>Email :</span>
+               <input type="email" name="email" required placeholder="masukkan email">
             </div>
             <div class="inputBox">
                <span>payment method :</span>
                <select name="method">
-                  <option value="cash on delivery">cash on delivery</option>
+                  <option value="COD">COD</option>
                   <option value="credit card">credit card</option>
-                  <option value="paypal">paypal</option>
-                  <option value="paytm">paytm</option>
+                  <option value="debit card">debit card</option>
+                  <option value="paylater">paylater</option>
                </select>
             </div>
             <div class="inputBox">
-               <span>address line 01 :</span>
-               <input type="number" min="0" name="flat" required placeholder="e.g. flat no.">
+               <span>Nomor Rumah</span>
+               <input type="number" min="0" name="nomor" required placeholder="35">
             </div>
             <div class="inputBox">
-               <span>address line 01 :</span>
-               <input type="text" name="street" required placeholder="e.g. street name">
+               <span>Kurir :</span>
+               <select name="kurir">
+                  <option value="cash on delivery">JNE</option>
+                  <option value="credit card">J&T</option>
+                  <option value="paypal">Pos Indonesia</option>
+                  <option value="paytm">Gojek</option>
+               </select>
             </div>
             <div class="inputBox">
-               <span>city :</span>
-               <input type="text" name="city" required placeholder="e.g. mumbai">
+               <span>Kota :</span>
+               <input type="text" name="city" required placeholder="Semarang">
             </div>
             <div class="inputBox">
-               <span>state :</span>
-               <input type="text" name="state" required placeholder="e.g. maharashtra">
+               <span>Provinsi :</span>
+               <input type="text" name="prov" required placeholder="Jawa Tengah">
             </div>
             <div class="inputBox">
-               <span>country :</span>
-               <input type="text" name="country" required placeholder="e.g. india">
+               <span>Jalan :</span>
+               <input type="text" name="road" required placeholder="Jl. Pemuda">
             </div>
             <div class="inputBox">
-               <span>pin code :</span>
-               <input type="number" min="0" name="pin_code" required placeholder="e.g. 123456">
+               <span>Kode Pos :</span>
+               <input type="number" min="0" maxlength="5" name="pos_code" required placeholder="132564">
             </div>
          </div>
          <input type="submit" value="order now" class="btn" name="order_btn">

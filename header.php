@@ -27,19 +27,19 @@ if (isset($message)) {
 
    <div class="header-2">
       <div class="flex">
-         <a href="home.php" class="logo"><img src="images/BukA buku (1).png" alt="" width="40%" height="20%"></a>
+         <a href="home.php" class="logo"><img src="images/unithrift.png" alt="" width="40%" height="20%"></a>
 
          <nav class="navbar">
             <a href="home.php">home</a>
             <!-- <a href="about.php">about</a> -->
             <a href="shop.php">product</a>
             <!-- <a href="contact.php">contact</a> -->
-            <a href="orders.php">peminjaman</a>
+            <a href="orders.php">transaksi</a>
          </nav>
 
          <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
-            <a href="search_page.php" class="fas fa-search"></a>
+            <!-- <a href="search_page.php" class="fas fa-search"></a> -->
             <div id="user-btn" class="fas fa-user"></div>
             <?php
             $select_cart_number = mysqli_query($conn, "SELECT * FROM `cart` WHERE user_id = '$user_id'") or die('query failed');

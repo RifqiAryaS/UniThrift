@@ -82,39 +82,39 @@ if (!isset($admin_id)) {
 
          <div class="box">
             <?php
-            $select_products = mysqli_query($conn, "SELECT * FROM `products`") or die('query failed');
+            $select_products = mysqli_query($conn, "SELECT * FROM `products` WHERE user_id = '$admin_id'") or die('query failed');
             $number_of_products = mysqli_num_rows($select_products);
             ?>
             <h3><?php echo $number_of_products; ?></h3>
             <p>Daftar Produk</p>
          </div>
 
-         <div class="box">
+         <!-- <div class="box">
             <?php
             $select_users = mysqli_query($conn, "SELECT * FROM `users` WHERE user_type = 'user'") or die('query failed');
             $number_of_users = mysqli_num_rows($select_users);
             ?>
             <h3><?php echo $number_of_users; ?></h3>
             <p>Member</p>
-         </div>
+         </div> -->
 
-         <div class="box">
+         <!-- <div class="box">
             <?php
             $select_admins = mysqli_query($conn, "SELECT * FROM `users` WHERE user_type = 'admin'") or die('query failed');
             $number_of_admins = mysqli_num_rows($select_admins);
             ?>
             <h3><?php echo $number_of_admins; ?></h3>
             <p>Admin</p>
-         </div>
+         </div> -->
 
-         <div class="box">
+         <!-- <div class="box">
             <?php
             $select_account = mysqli_query($conn, "SELECT * FROM `users`") or die('query failed');
             $number_of_account = mysqli_num_rows($select_account);
             ?>
             <h3><?php echo $number_of_account; ?></h3>
             <p>Total Akun</p>
-         </div>
+         </div> -->
 
          <!-- <div class="box">
             <?php

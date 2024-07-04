@@ -19,7 +19,7 @@ if (isset($_POST['add_product'])) {
    $image_tmp_name = $_FILES['image']['tmp_name'];
    $image_folder = 'uploaded_img/' . $image;
 
-   $select_product_name = mysqli_query($conn, "SELECT name FROM `products` WHERE name = '$name'") or die('query failed');
+   $select_product_name = mysqli_query($conn, "SELECT name FROM `products` WHERE name = '$name' AND user_id = '$admin_id'") or die('query failed');
 
    if (mysqli_num_rows($select_product_name) > 0) {
       $error_msg[] = 'nama produk sudah ada';
@@ -27,7 +27,7 @@ if (isset($_POST['add_product'])) {
       if ($image_size > 2000000) {
          $warning_msg[] = 'ukuran file terlalu besar';
       } else {
-         $add_product_query = mysqli_query($conn, "INSERT INTO `products`(name, price, stock, image) VALUES('$name', $price, $stock, '$image')") or die('query failed');
+         $add_product_query = mysqli_query($conn, "INSERT INTO `products`(name, price, stock, image, user_id) VALUES('$name', $price, $stock, '$image', '$admin_id')") or die('query failed');
 
          if ($add_product_query) {
             move_uploaded_file($image_tmp_name, $image_folder);
@@ -52,9 +52,10 @@ if (isset($_POST['update_product'])) {
 
    $update_p_id = $_POST['update_p_id'];
    $update_name = $_POST['update_name'];
-   // $update_price = $_POST['update_price'];
+   $update_price = $_POST['update_price'];
+   $update_stock = $_POST['update_stock'];
 
-   mysqli_query($conn, "UPDATE `products` SET name = '$update_name' WHERE id = '$update_p_id'") or die('query failed');
+   mysqli_query($conn, "UPDATE `products` SET name = '$update_name', price = '$update_price', stock = '$update_stock' WHERE id = '$update_p_id'") or die('query failed');
 
    $update_image = $_FILES['update_image']['name'];
    $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
@@ -64,7 +65,7 @@ if (isset($_POST['update_product'])) {
 
    if (!empty($update_image)) {
       if ($update_image_size > 2000000) {
-         $warning_msg[] = 'ukuran file terlalu besar';
+         $message[] = 'ukuran file terlalu besar';
       } else {
          mysqli_query($conn, "UPDATE `products` SET image = '$update_image' WHERE id = '$update_p_id'") or die('query failed');
          move_uploaded_file($update_image_tmp_name, $update_folder);
@@ -124,7 +125,7 @@ if (isset($_POST['update_product'])) {
       <div class="box-container">
 
          <?php
-         $select_products = mysqli_query($conn, "SELECT * FROM `products`") or die('query failed');
+         $select_products = mysqli_query($conn, "SELECT * FROM `products` WHERE user_id='$admin_id'") or die('query failed');
          if (mysqli_num_rows($select_products) > 0) {
             while ($fetch_products = mysqli_fetch_assoc($select_products)) {
          ?>
@@ -141,7 +142,7 @@ if (isset($_POST['update_product'])) {
                   <div class="price">Rp. <?php echo $fetch_products['price']; ?></div>
                   <!-- <div class="stock"><?php echo $fetch_products['stock']; ?></div> -->
                   <a href="admin_products.php?update=<?php echo $fetch_products['id']; ?>" class="option-btn">update</a>
-                  <a href="admin_products.php?delete=<?php echo $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('hapus buku ini?');">delete</a>
+                  <a href="admin_products.php?delete=<?php echo $fetch_products['id']; ?>" class="delete-btn" onclick="return confirm('hapus produk ini?');">delete</a>
                </div>
          <?php
             }
@@ -153,7 +154,7 @@ if (isset($_POST['update_product'])) {
 
    </section>
 
-   <section class="edit-product-form">
+   <section class="tukar-product-form">
 
       <?php
       if (isset($_GET['update'])) {
@@ -167,7 +168,8 @@ if (isset($_POST['update_product'])) {
                   <input type="hidden" name="update_old_image" value="<?php echo $fetch_update['image']; ?>">
                   <img src="uploaded_img/<?php echo $fetch_update['image']; ?>" alt="">
                   <input type="text" name="update_name" value="<?php echo $fetch_update['name']; ?>" class="box" required placeholder="enter product name">
-                  <!-- <input type="number" name="update_price" value="<?php echo $fetch_update['price']; ?>" min="0" class="box" required placeholder="enter product price"> -->
+                  <input type="number" name="update_price" value="<?php echo $fetch_update['price']; ?>" min="0" class="box" required placeholder="enter product price">
+                  <input type="number" name="update_stock" value="<?php echo $fetch_update['stock']; ?>" min="0" class="box" required placeholder="enter product stock">
                   <input type="file" class="box" name="update_image" accept="image/jpg, image/jpeg, image/png">
                   <input type="submit" value="update" name="update_product" class="btn">
                   <input type="reset" value="cancel" id="close-update" class="option-btn">

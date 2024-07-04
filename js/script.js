@@ -22,3 +22,8 @@ window.onscroll = () =>{
       document.querySelector('.header .header-2').classList.remove('active');
    }
 }
+
+document.querySelector('#close-tukar').onclick = () =>{
+   document.querySelector('.tukar-product-form').style.display = 'none';
+   window.location.href = 'home.php';
+}

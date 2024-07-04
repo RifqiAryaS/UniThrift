@@ -21,8 +21,8 @@ document.querySelector('#close-update').onclick = () =>{
    window.location.href = 'admin_products.php';
 }
 
-document.querySelectorAll('input[type="number"]').forEach(inputNumber => {
-   inputNumber.oninput = () =>{
-      if(inputNumber.value.length > inputNumber.maxLength) inputNumber.value = inputNumber.value.slice(0, inputNumber.maxLength);
-   };
-});
+// document.querySelectorAll('input[type="number"]').forEach(inputNumber => {
+//    inputNumber.oninput = () =>{
+//       if(inputNumber.value.length > inputNumber.maxLength) inputNumber.value = inputNumber.value.slice(0, inputNumber.maxLength);
+//    };
+// });
